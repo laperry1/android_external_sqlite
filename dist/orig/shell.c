@@ -2698,10 +2698,10 @@ static int shell_dbinfo_command(ShellState *p, int nArg, char **azArg){
   }
   i = get2byteInt(aHdr+16);
   if( i==1 ) i = 65536;
-  utf8_printf(p->out, "%-20s %d\n", "database page size:", i);
-  utf8_printf(p->out, "%-20s %d\n", "write format:", aHdr[18]);
-  utf8_printf(p->out, "%-20s %d\n", "read format:", aHdr[19]);
-  utf8_printf(p->out, "%-20s %d\n", "reserved bytes:", aHdr[20]);
+  fprintf(p->out, "%-20s %d\n", "database page size:", i);
+  fprintf(p->out, "%-20s %d\n", "write format:", aHdr[18]);
+  fprintf(p->out, "%-20s %d\n", "read format:", aHdr[19]);
+  fprintf(p->out, "%-20s %d\n", "reserved bytes:", aHdr[20]);
   for(i=0; i<ArraySize(aField); i++){
     int ofst = aField[i].ofst;
     unsigned int val = get4byteInt(aHdr + ofst);
@@ -2737,7 +2737,7 @@ static int shell_dbinfo_command(ShellState *p, int nArg, char **azArg){
 */
 static int shellDatabaseError(sqlite3 *db){
   const char *zErr = sqlite3_errmsg(db);
-  utf8_printf(stderr, "Error: %s\n", zErr);
+  fprintf(stderr, "Error: %s\n", zErr);
   return 1;
 }
 
@@ -2745,7 +2745,7 @@ static int shellDatabaseError(sqlite3 *db){
 ** Print an out-of-memory message to stderr and return 1.
 */
 static int shellNomemError(void){
-  raw_printf(stderr, "Error: out of memory\n");
+  fprintf(stderr, "Error: out of memory\n");
   return 1;
 }
 
